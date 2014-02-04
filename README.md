@@ -89,7 +89,7 @@ Are the Kinvey SDK files in this Bower package out of date? You can help!
 5. Add the new files and commit.
 6. Open a [pull request](https://github.com/logankoester/kinvey/pulls) with the new version.
 
-It will be available on **bower** as soon as your pull request is accepted.
+It will be available on **bower** as soon as your pull request is accepted and the new version is tagged.
 
 ## License
 
