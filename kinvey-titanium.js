@@ -16,7 +16,7 @@
   };
   var File = function() { };;
 /** @license MIT - promiscuous library - ©2013 Ruben Verborgh */
-!function(){function e(){var c=function(u,f,i){if(u!==c){var v=e();return c.c.push({d:v,resolve:u,reject:f}),v.promise}for(var s=f?"resolve":"reject",a=0,p=c.c.length;p>a;a++){var h=c.c[a],l=h.d,j=h[s];typeof j!==t?l[s](i):n(j,i,l)}c=r(o,i,f)},o={then:function(e,r){return c(e,r)}};return c.c=[],{promise:o,resolve:function(e){c.c&&c(c,!0,e)},reject:function(e){c.c&&c(c,!1,e)}}}function r(r,c,o){return function(u,f){var i,v=o?u:f;return typeof v!==t?r:(n(v,c,i=e()),i.promise)}}function n(e,r,n){setTimeout(function(){try{var c=e(r);c&&typeof c.then===t?c.then(n.resolve,n.reject):n.resolve(c)}catch(o){n.reject(o)}})}var t="function";window.promiscuous={resolve:function(e){var n={};return n.then=r(n,e,!0),n},reject:function(e){var n={};return n.then=r(n,e,!1),n},deferred:e}}();;
+!function e(){function t(){var u=function i(l,a,v){if(l!==e){var p=t();return i.c.push({d:p,resolve:l,reject:a}),p.promise}var s;if(null!==v&&(typeof v===c||typeof v===o))try{s=v.then}catch(y){a=!1,v=y}if(typeof s===o){l=u;try{s.call(this,function(t){s&&(s=null,l(e,!0,t))},function(t){s&&(s=null,l(e,!1,t))})}catch(y){s&&(s=null,l(e,!1,y))}}else{for(var h=a?"resolve":"reject",j=i.c,m=0,d=j.length;d>m;m++){var b=j[m],g=b.d,w=b[h];typeof w!==o?g[h](v):n(w,v,g)}u=r(f,v,a)}},f={then:function(e,t){return u(e,t)}};return u.c=[],{promise:f,resolve:function(t){u.c&&u(e,!0,t)},reject:function(t){u.c&&u(e,!1,t)}}}function r(e,r,c){return function(u,f){var i,l=c?u:f;return typeof l!==o?e:(n(l,r,i=t()),i.promise)}}function n(e,t,r){setTimeout(function(){try{var n=e(t),u=null!==n&&(typeof n===c||typeof n===o)&&n.then;typeof u!==o?r.resolve(n):n===r.promise?r.reject(new TypeError):u.call(n,r.resolve,r.reject)}catch(f){r.reject(f)}})}var o="function",c="object";window.promiscuous={resolve:function(e){var t={};return t.then=r(t,e,!0),t},reject:function(e){var t={};return t.then=r(t,e,!1),t},deferred:t}}();;
 (function(){var l=new function(){function d(a){return a?0:-1}var f=this.priority=function(a,b){for(var c=a.exprs,e=0,f=0,d=c.length;f<d;f++){var g=c[f];if(!~(g=g.e(g.v,b instanceof Date?b.getTime():b,b)))return-1;e+=g}return e},e=this.parse=function(a,b){a||(a={$eq:a});var c=[];if(a.constructor==Object)for(var d in a){var m=k[d]?d:"$trav",j=a[d],g=j;if(h[m]){if(~d.indexOf(".")){g=d.split(".");d=g.shift();for(var n={},l=n,p=0,s=g.length-1;p<s;p++)l=l[g[p]]={};l[g[p]]=j;g=j=n}if(j instanceof Array){g=
 [];for(n=j.length;n--;)g.push(e(j[n]))}else g=e(j,d)}c.push(r(m,d,g))}else c.push(r("$eq",d,a));var q={exprs:c,k:b,test:function(a){return!!~q.priority(a)},priority:function(a){return f(q,a)}};return q},h=this.traversable={$and:!0,$or:!0,$nor:!0,$trav:!0,$not:!0},k=this.testers={$eq:function(a,b){return d(a.test(b))},$ne:function(a,b){return d(!a.test(b))},$lt:function(a,b){return a>b?0:-1},$gt:function(a,b){return a<b?0:-1},$lte:function(a,b){return a>=b?0:-1},$gte:function(a,b){return a<=b?0:-1},
 $exists:function(a,b){return a===(null!=b)?0:-1},$in:function(a,b){if(b instanceof Array)for(var c=b.length;c--;){if(~a.indexOf(b[c]))return c}else return d(~a.indexOf(b));return-1},$not:function(a,b){if(!a.test)throw Error("$not test should include an expression, not a value. Use $ne instead.");return d(!a.test(b))},$type:function(a,b,c){return c?c instanceof a||c.constructor==a?0:-1:-1},$nin:function(a,b){return~k.$in(a,b)?-1:0},$mod:function(a,b){return b%a[0]==a[1]?0:-1},$all:function(a,b){for(var c=
@@ -29,7 +29,7 @@ var exports=exports||this;exports.OAuth=function(a){function b(a){var e,b=argume
 var exports=exports||this;exports.Google=function(){function e(){var e=this,t=this.oauthClient,o=Ti.UI.createWindow({title:this.windowTitle}),n=Ti.UI.createWebView(),i=Ti.UI.createView({backgroundColor:"black",opacity:.7,zIndex:1}),r=Titanium.UI.createActivityIndicator({height:50,width:10,message:"Loading...",color:"white"}),c=Ti.UI.createButton({title:this.windowClose}),a=Ti.UI.createButton({title:this.windowBack});this.webView=n,o.leftNavButton=c,r.show(),i.add(r),o.add(i),o.open({modal:!0}),o.add(n),c.addEventListener("click",function(){o.close(),e.fireEvent("cancel",{success:!1,error:"The user cancelled.",result:null})}),a.addEventListener("click",function(){n.goBack()}),n.addEventListener("beforeload",function(){s||o.add(i),r.show()}),n.addEventListener("load",function(n){if(-1!==n.url.indexOf("https://accounts.google.com/o/oauth2/approval")){o.remove(i),r.hide(),o.leftNavButton!==a&&(o.leftNavButton=a),s||o.close();var u=n.source.evalJS("document.getElementsByTagName('title')[0].innerText").split("=")[1];t.post("https://accounts.google.com/o/oauth2/token",{grant_type:"authorization_code",client_id:e.consumerKey,client_secret:e.consumerSecret,code:u,redirect_uri:e.callbackUrl},function(n){var i=JSON.parse(n.text);t.setAccessToken([i.access_token]),e.accessTokenKey=i.access_token,e.refreshTokenKey=i.refresh_token,e.fireEvent("login",{success:!0,error:!1,accessTokenKey:t.getAccessTokenKey(),refreshTokenKey:e.refreshTokenKey,expiresIn:i.expires_in}),e.authorized=!0,s&&o.close()})}else o.remove(i),r.hide(),o.leftNavButton!==c&&(o.leftNavButton=c)})}var t=function(){},s="android"===Ti.Platform.osname,o=require("jsOAuth-1.3.3"),n=function(e){var s;return s=this instanceof n?this:new t,e||(e={}),s.windowTitle=e.windowTitle||"Google Authorization",s.windowClose=e.windowClose||"Close",s.windowBack=e.windowBack||"Back",s.consumerKey=e.consumerKey,s.consumerSecret=e.consumerSecret,s.accessTokenKey=e.accessTokenKey,s.refreshTokenKey=e.refreshTokenKey,s.scope=e.scope,s.authorized=!1,s.listeners={},s.accessTokenKey&&s.refreshTokenKey&&(s.authorized=!0),s.callbackUrl=e.callbackUrl||"urn:ietf:wg:oauth:2.0:oob",e.requestTokenUrl=e.requestTokenUrl||"https://accounts.google.com/o/oauth2/auth",s.oauthClient=o.OAuth(e),s};return t.prototype=n.prototype,n.prototype.authorize=function(){var t=this;this.authorized?this.oauthClient.post("https://accounts.google.com/o/oauth2/token",{grant_type:"refresh_token",client_id:this.consumerKey,client_secret:this.consumerSecret,refresh_token:this.refreshTokenKey},function(e){var s=JSON.parse(e.text);t.oauthClient.setAccessToken([s.access_token]),t.accessTokenKey=s.access_token,t.refreshTokenKey=s.refresh_token,t.fireEvent("login",{success:!0,error:!1,accessTokenKey:t.oauthClient.getAccessTokenKey(),refreshTokenKey:t.refreshTokenKey,expiresIn:s.expires_in})},function(){t.oauthClient.setAccessToken([null]),t.accessTokenKey=null,t.refreshTokenKey=null,t.fireEvent("login",{success:!1,error:!0})}):(e.call(this),this.oauthClient.setAccessToken("",""),t.webView.url=this.oauthClient.requestTokenUrl+"?client_id="+this.consumerKey+"&redirect_uri="+this.callbackUrl+"&scope="+this.scope+"&response_type=code")},n.prototype.request=function(e,t,s,o,n){var i=this,r=this.oauthClient,c=e;s.Authorization="OAuth "+r.getAccessTokenKey(),r.request({method:o,url:c,data:t,headers:s,success:function(e){n.call(i,{success:!0,error:!1,result:e})},failure:function(e){n.call(i,{success:!1,error:"Request failed",result:e})}})},n.prototype.logout=function(e){this.oauthClient.setAccessToken("",""),this.accessTokenKey=null,this.refreshTokenKey=null,this.authorized=!1,e()},n.prototype.addEventListener=function(e,t){this.listeners=this.listeners||{},this.listeners[e]=this.listeners[e]||[],this.listeners[e].push(t)},n.prototype.fireEvent=function(e,t){for(var s=this.listeners[e]||[],o=0;o<s.length;o++)s[o].call(this,t)},n.prototype.refreshAccessToken=function(){var e=this;e.oauthClient.post("https://accounts.google.com/o/oauth2/token",{grant_type:"refresh_token",client_id:e.consumerKey,client_secret:e.consumerSecret,refresh_token:e.refreshTokenKey},function(t){var s=JSON.parse(t.text);e.oauthClient.setAccessToken([s.access_token]),e.accessTokenKey=s.access_token,e.refreshTokenKey=s.refresh_token,e.fireEvent("refresh",{success:!0,error:!1,accessTokenKey:e.oauthClient.getAccessTokenKey(),refreshTokenKey:e.refreshTokenKey,expiresIn:s.expires_in})},function(){e.fireEvent("refresh",{success:!1,error:!0})})},n}(this);var exports=exports||this;exports.Linkedin=function(){function e(){var e=this,t=this.oauthClient,o=Ti.UI.createWindow({title:this.windowTitle}),n=Ti.UI.createWebView(),i=Ti.UI.createView({backgroundColor:"black",opacity:.7,zIndex:1}),r=Titanium.UI.createActivityIndicator({height:50,width:10,message:"Loading...",color:"white"}),c=Ti.UI.createButton({title:this.windowClose}),a=Ti.UI.createButton({title:this.windowBack});this.webView=n,o.leftNavButton=c,r.show(),i.add(r),o.add(i),o.open({modal:!0}),o.add(n),c.addEventListener("click",function(){o.close(),e.fireEvent("cancel",{success:!1,error:"The user cancelled.",result:null})}),a.addEventListener("click",function(){n.goBack()}),n.addEventListener("beforeload",function(){s||o.add(i),r.show()}),n.addEventListener("load",function(n){if(-1===n.url.indexOf(e.authorizeUrl))o.remove(i),r.hide(),o.leftNavButton!==a&&(o.leftNavButton=a);else{o.leftNavButton!==c&&(o.leftNavButton=c);var u=n.source.evalJS("document.getElementsByClassName('access-code')[0].innerText");u?(s||o.close(),t.accessTokenUrl="https://api.linkedin.com/uas/oauth/accessToken?oauth_verifier="+u,t.fetchAccessToken(function(){e.fireEvent("login",{success:!0,error:!1,accessTokenKey:t.getAccessTokenKey(),accessTokenSecret:t.getAccessTokenSecret()}),e.authorized=!0,s&&o.close()},function(t){e.fireEvent("login",{success:!1,error:"Failure to fetch access token, please try again.",result:t})})):(o.remove(i),r.hide())}})}var t=function(){},s="android"===Ti.Platform.osname,o=require("jsOAuth-1.3.3"),n=function(e){var s;return s=this instanceof n?this:new t,e||(e={}),s.windowTitle=e.windowTitle||"Linkedin Authorization",s.windowClose=e.windowClose||"Close",s.windowBack=e.windowBack||"Back",s.consumerKey=e.consumerKey,s.consumerSecret=e.consumerSecret,s.authorizeUrl="https://www.linkedin.com/uas/oauth/authorize",s.accessTokenKey=e.accessTokenKey,s.accessTokenSecret=e.accessTokenSecret,s.scope=e.scope,s.authorized=!1,s.listeners={},s.accessTokenKey&&(s.authorized=!0),s.callbackUrl=e.callbackUrl||"oob",e.requestTokenUrl=e.requestTokenUrl||"https://api.linkedin.com/uas/oauth/requestToken",s.oauthClient=o.OAuth(e),s};return t.prototype=n.prototype,n.prototype.authorize=function(){var t=this;this.authorized?setTimeout(function(){t.fireEvent("login",{success:!0,error:!1,accessTokenKey:t.accessTokenKey,accessTokenSecret:t.accessTokenSecret})},1):(e.call(this),this.oauthClient.fetchRequestToken(function(e){var s=t.authorizeUrl+e;t.webView.url=s},function(e){t.fireEvent("login",{success:!1,error:"Failure to fetch access token, please try again.",result:e})}))},n.prototype.request=function(e,t,s,o,n){var i,r=this,c=this.oauthClient;i=e.match(/^https?:\/\/.+/i)?e:"https://api.linkedin.com/"+e,t.access_token=this.accessTokenKey,c.request({method:o,url:i,data:t,headers:s,success:function(e){n.call(r,{success:!0,error:!1,result:e})},failure:function(e){n.call(r,{success:!1,error:"Request failed",result:e})}})},n.prototype.logout=function(e){this.oauthClient.setAccessToken("",""),this.accessTokenKey=null,this.accessTokenSecret=null,this.authorized=!1,e()},n.prototype.addEventListener=function(e,t){this.listeners=this.listeners||{},this.listeners[e]=this.listeners[e]||[],this.listeners[e].push(t)},n.prototype.fireEvent=function(e,t){for(var s=this.listeners[e]||[],o=0;o<s.length;o++)s[o].call(this,t)},n}(this);var exports=exports||this;exports.Twitter=function(){function e(){var e=this,t=this.oauthClient,o=Ti.UI.createWindow({title:this.windowTitle}),n=Ti.UI.createWebView(),i=Ti.UI.createView({backgroundColor:"black",opacity:.7,zIndex:1}),r=Titanium.UI.createActivityIndicator({height:50,width:10,message:"Loading...",color:"white"}),c=Ti.UI.createButton({title:this.windowClose}),a=Ti.UI.createButton({title:this.windowBack});this.webView=n,o.leftNavButton=c,r.show(),i.add(r),o.add(i),o.open({modal:!0}),o.add(n),c.addEventListener("click",function(){o.close(),e.fireEvent("cancel",{success:!1,error:"The user cancelled.",result:null})}),a.addEventListener("click",function(){n.goBack()}),n.addEventListener("beforeload",function(){s||o.add(i),r.show()}),n.addEventListener("load",function(n){if(-1===n.url.indexOf(e.authorizeUrl))o.remove(i),r.hide(),o.leftNavButton!==a&&(o.leftNavButton=a);else{o.leftNavButton!==c&&(o.leftNavButton=c);var u=n.source.evalJS("document.getElementById('oauth_pin').getElementsByTagName('code')[0].innerText");u?(s||o.close(),t.accessTokenUrl="https://api.twitter.com/oauth/access_token?oauth_verifier="+u,t.fetchAccessToken(function(){e.fireEvent("login",{success:!0,error:!1,accessTokenKey:t.getAccessTokenKey(),accessTokenSecret:t.getAccessTokenSecret()}),e.authorized=!0,s&&o.close()},function(t){e.fireEvent("login",{success:!1,error:"Failure to fetch access token, please try again.",result:t})})):(o.remove(i),r.hide())}})}var t=function(){},s="android"===Ti.Platform.osname,o=require("jsOAuth-1.3.3"),n=function(e){var s;return s=this instanceof n?this:new t,e||(e={}),s.windowTitle=e.windowTitle||"Twitter Authorization",s.windowClose=e.windowClose||"Close",s.windowBack=e.windowBack||"Back",s.consumerKey=e.consumerKey,s.consumerSecret=e.consumerSecret,s.authorizeUrl="https://api.twitter.com/oauth/authorize",s.accessTokenKey=e.accessTokenKey,s.accessTokenSecret=e.accessTokenSecret,s.authorized=!1,s.listeners={},s.accessTokenKey&&s.accessTokenSecret&&(s.authorized=!0),e.requestTokenUrl=e.requestTokenUrl||"https://api.twitter.com/oauth/request_token",s.oauthClient=o.OAuth(e),s};return t.prototype=n.prototype,n.prototype.authorize=function(){var t=this;this.authorized?setTimeout(function(){t.fireEvent("login",{success:!0,error:!1,accessTokenKey:t.accessTokenKey,accessTokenSecret:t.accessTokenSecret})},1):(e.call(this),this.oauthClient.fetchRequestToken(function(e){var s=t.authorizeUrl+e;t.webView.url=s},function(e){t.fireEvent("login",{success:!1,error:"Failure to fetch access token, please try again.",result:e})}))},n.prototype.request=function(e,t,s,o,n){var i,r=this,c=this.oauthClient;i=e.match(/^https?:\/\/.+/i)?e:"https://api.twitter.com/"+e,c.request({method:o,url:i,data:t,headers:s,success:function(e){n.call(r,{success:!0,error:!1,result:e})},failure:function(e){n.call(r,{success:!1,error:"Request failed",result:e})}})},n.prototype.logout=function(e){this.oauthClient.setAccessToken("",""),this.accessTokenKey=null,this.accessTokenSecret=null,this.authorized=!1,e()},n.prototype.addEventListener=function(e,t){this.listeners=this.listeners||{},this.listeners[e]=this.listeners[e]||[],this.listeners[e].push(t)},n.prototype.fireEvent=function(e,t){for(var s=this.listeners[e]||[],o=0;o<s.length;o++)s[o].call(this,t)},n}(this);;
 }.call(this));;
 /*!
- * Copyright (c) 2013 Kinvey, Inc.
+ * Copyright (c) 2014 Kinvey, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -134,7 +134,7 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
      * @type {string}
      * @default
      */
-    Kinvey.SDK_VERSION = '1.1.3';
+    Kinvey.SDK_VERSION = '1.1.4';
 
     // Properties.
     // -----------
@@ -169,7 +169,7 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
     // The namespaces of the Kinvey service.
     var DATA_STORE = 'appdata';
     var FILES = 'blob';
-    var PUSH = 'push';
+    /*var PUSH = 'push';*/
     var RPC = 'rpc';
     var USERS = 'user';
     /*var USER_GROUPS = 'group';*/
@@ -1601,7 +1601,7 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
       }
 
       // Return the device information string.
-      var parts = ['js-titanium/1.1.3'];
+      var parts = ['js-titanium/1.1.4'];
       if(0 !== libraries.length) { // Add external library information.
         parts.push('(' + libraries.sort().join(', ') + ')');
       }
@@ -4533,7 +4533,7 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
        * @param {string} field Field.
        * @param {RegExp|string} regExp Regular expression.
        * @param {Object} [options] Options.
-       * @param {boolean} [options.ignoreCase=inherit] Toggles case insensitivity.
+       * @param {boolean} [options.ignoreCase=inherit] Toggles case-insensitivity.
        * @param {boolean} [options.multiline=inherit] Toggles multiline matching.
        * @param {boolean} [options.extended=false] Toggles extended capability.
        * @param {boolean} [options.dotMatchesAll=false] Toggles dot matches all.
@@ -4544,13 +4544,18 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
         if(!isRegExp(regExp)) {
           regExp = new RegExp(regExp);
         }
+        options = options || {};
+
+        // Validate arguments.
+        if((regExp.ignoreCase || options.ignoreCase) && false !== options.ignoreCase) {
+          throw new Error('ignoreCase flag is not supported.');
+        }
+        if(0 !== regExp.source.indexOf('^')) {
+          throw new Error('regExp must be an anchored expression.');
+        }
 
         // Flags.
-        options = options || {};
         var flags = [];
-        if((regExp.ignoreCase || options.ignoreCase) && false !== options.ignoreCase) {
-          flags.push('i');
-        }
         if((regExp.multiline || options.multiline) && false !== options.multiline) {
           flags.push('m');
         }
@@ -6175,7 +6180,10 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
             options
           ).then(function(response) {
             // Parse the response.
-            response = JSON.parse(response);
+            try {
+              response = JSON.parse(response);
+            }
+            catch(e) {}
 
             // Debug.
             if(KINVEY_DEBUG && options.trace && isObject(response)) {
@@ -6185,17 +6193,17 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
             return options.trace && isObject(response) ? response.result : response;
           }, function(response) {
             // Parse the response.
-            var requestId = null;
             try {
               response = JSON.parse(response);
-
-              // If `options.trace`, extract result and headers from the response.
-              if(options.trace) {
-                requestId = response.headers['X-Kinvey-Request-Id'];
-                response = response.result;
-              }
             }
             catch(e) {}
+
+            // If `options.trace`, extract result and headers from the response.
+            var requestId = null;
+            if(options.trace) {
+              requestId = response.headers['X-Kinvey-Request-Id'];
+              response = response.result;
+            }
 
             // Format the response as client-side error object.
             if(null != response && null != response.error) { // Server-side error.
@@ -6475,11 +6483,13 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
         }).then(function(response) {
           // Step 2: categorize the documents in the collection.
           var promises = identifiers.map(function(id) {
+            var metadata = {
+              id: id,
+              timestamp: documents[id]
+            };
             return Sync._document(
-              collection, {
-                id: id,
-                timestamp: documents[id]
-              }, // The document metadata.
+              collection,
+              metadata, // The document metadata.
               response.local[id] || null, // The local document.
               response.net[id] || null, // The net document.
               options

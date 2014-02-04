@@ -1,5 +1,5 @@
 /** @license MIT - promiscuous library - ©2013 Ruben Verborgh */
-!function(){function e(){var c=function(u,f,i){if(u!==c){var v=e();return c.c.push({d:v,resolve:u,reject:f}),v.promise}for(var s=f?"resolve":"reject",a=0,p=c.c.length;p>a;a++){var h=c.c[a],l=h.d,j=h[s];typeof j!==t?l[s](i):n(j,i,l)}c=r(o,i,f)},o={then:function(e,r){return c(e,r)}};return c.c=[],{promise:o,resolve:function(e){c.c&&c(c,!0,e)},reject:function(e){c.c&&c(c,!1,e)}}}function r(r,c,o){return function(u,f){var i,v=o?u:f;return typeof v!==t?r:(n(v,c,i=e()),i.promise)}}function n(e,r,n){setTimeout(function(){try{var c=e(r);c&&typeof c.then===t?c.then(n.resolve,n.reject):n.resolve(c)}catch(o){n.reject(o)}})}var t="function";window.promiscuous={resolve:function(e){var n={};return n.then=r(n,e,!0),n},reject:function(e){var n={};return n.then=r(n,e,!1),n},deferred:e}}();;
+!function e(){function t(){var u=function i(l,a,v){if(l!==e){var p=t();return i.c.push({d:p,resolve:l,reject:a}),p.promise}var s;if(null!==v&&(typeof v===c||typeof v===o))try{s=v.then}catch(y){a=!1,v=y}if(typeof s===o){l=u;try{s.call(this,function(t){s&&(s=null,l(e,!0,t))},function(t){s&&(s=null,l(e,!1,t))})}catch(y){s&&(s=null,l(e,!1,y))}}else{for(var h=a?"resolve":"reject",j=i.c,m=0,d=j.length;d>m;m++){var b=j[m],g=b.d,w=b[h];typeof w!==o?g[h](v):n(w,v,g)}u=r(f,v,a)}},f={then:function(e,t){return u(e,t)}};return u.c=[],{promise:f,resolve:function(t){u.c&&u(e,!0,t)},reject:function(t){u.c&&u(e,!1,t)}}}function r(e,r,c){return function(u,f){var i,l=c?u:f;return typeof l!==o?e:(n(l,r,i=t()),i.promise)}}function n(e,t,r){setTimeout(function(){try{var n=e(t),u=null!==n&&(typeof n===c||typeof n===o)&&n.then;typeof u!==o?r.resolve(n):n===r.promise?r.reject(new TypeError):u.call(n,r.resolve,r.reject)}catch(f){r.reject(f)}})}var o="function",c="object";window.promiscuous={resolve:function(e){var t={};return t.then=r(t,e,!0),t},reject:function(e){var t={};return t.then=r(t,e,!1),t},deferred:t}}();;
 (function(){var l=new function(){function d(a){return a?0:-1}var f=this.priority=function(a,b){for(var c=a.exprs,e=0,f=0,d=c.length;f<d;f++){var g=c[f];if(!~(g=g.e(g.v,b instanceof Date?b.getTime():b,b)))return-1;e+=g}return e},e=this.parse=function(a,b){a||(a={$eq:a});var c=[];if(a.constructor==Object)for(var d in a){var m=k[d]?d:"$trav",j=a[d],g=j;if(h[m]){if(~d.indexOf(".")){g=d.split(".");d=g.shift();for(var n={},l=n,p=0,s=g.length-1;p<s;p++)l=l[g[p]]={};l[g[p]]=j;g=j=n}if(j instanceof Array){g=
 [];for(n=j.length;n--;)g.push(e(j[n]))}else g=e(j,d)}c.push(r(m,d,g))}else c.push(r("$eq",d,a));var q={exprs:c,k:b,test:function(a){return!!~q.priority(a)},priority:function(a){return f(q,a)}};return q},h=this.traversable={$and:!0,$or:!0,$nor:!0,$trav:!0,$not:!0},k=this.testers={$eq:function(a,b){return d(a.test(b))},$ne:function(a,b){return d(!a.test(b))},$lt:function(a,b){return a>b?0:-1},$gt:function(a,b){return a<b?0:-1},$lte:function(a,b){return a>=b?0:-1},$gte:function(a,b){return a<=b?0:-1},
 $exists:function(a,b){return a===(null!=b)?0:-1},$in:function(a,b){if(b instanceof Array)for(var c=b.length;c--;){if(~a.indexOf(b[c]))return c}else return d(~a.indexOf(b));return-1},$not:function(a,b){if(!a.test)throw Error("$not test should include an expression, not a value. Use $ne instead.");return d(!a.test(b))},$type:function(a,b,c){return c?c instanceof a||c.constructor==a?0:-1:-1},$nin:function(a,b){return~k.$in(a,b)?-1:0},$mod:function(a,b){return b%a[0]==a[1]?0:-1},$all:function(a,b){for(var c=
@@ -9,7 +9,7 @@ e.sort(function(a,b){return a.priority>b.priority?-1:1});d=Array(e.length);for(c
 module.exports=h:"undefined"!=typeof window&&(window.sift=h)})();
 ;
 /*!
- * Copyright (c) 2013 Kinvey, Inc.
+ * Copyright (c) 2014 Kinvey, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -114,7 +114,7 @@ module.exports=h:"undefined"!=typeof window&&(window.sift=h)})();
      * @type {string}
      * @default
      */
-    Kinvey.SDK_VERSION = '1.1.3';
+    Kinvey.SDK_VERSION = '1.1.4';
 
     // Properties.
     // -----------
@@ -149,7 +149,7 @@ module.exports=h:"undefined"!=typeof window&&(window.sift=h)})();
     // The namespaces of the Kinvey service.
     var DATA_STORE = 'appdata';
     var FILES = 'blob';
-    var PUSH = 'push';
+    /*var PUSH = 'push';*/
     var RPC = 'rpc';
     var USERS = 'user';
     /*var USER_GROUPS = 'group';*/
@@ -1581,7 +1581,7 @@ module.exports=h:"undefined"!=typeof window&&(window.sift=h)})();
       }
 
       // Return the device information string.
-      var parts = ['js-html5/1.1.3'];
+      var parts = ['js-html5/1.1.4'];
       if(0 !== libraries.length) { // Add external library information.
         parts.push('(' + libraries.sort().join(', ') + ')');
       }
@@ -4513,7 +4513,7 @@ module.exports=h:"undefined"!=typeof window&&(window.sift=h)})();
        * @param {string} field Field.
        * @param {RegExp|string} regExp Regular expression.
        * @param {Object} [options] Options.
-       * @param {boolean} [options.ignoreCase=inherit] Toggles case insensitivity.
+       * @param {boolean} [options.ignoreCase=inherit] Toggles case-insensitivity.
        * @param {boolean} [options.multiline=inherit] Toggles multiline matching.
        * @param {boolean} [options.extended=false] Toggles extended capability.
        * @param {boolean} [options.dotMatchesAll=false] Toggles dot matches all.
@@ -4524,13 +4524,18 @@ module.exports=h:"undefined"!=typeof window&&(window.sift=h)})();
         if(!isRegExp(regExp)) {
           regExp = new RegExp(regExp);
         }
+        options = options || {};
+
+        // Validate arguments.
+        if((regExp.ignoreCase || options.ignoreCase) && false !== options.ignoreCase) {
+          throw new Error('ignoreCase flag is not supported.');
+        }
+        if(0 !== regExp.source.indexOf('^')) {
+          throw new Error('regExp must be an anchored expression.');
+        }
 
         // Flags.
-        options = options || {};
         var flags = [];
-        if((regExp.ignoreCase || options.ignoreCase) && false !== options.ignoreCase) {
-          flags.push('i');
-        }
         if((regExp.multiline || options.multiline) && false !== options.multiline) {
           flags.push('m');
         }
@@ -6155,7 +6160,10 @@ module.exports=h:"undefined"!=typeof window&&(window.sift=h)})();
             options
           ).then(function(response) {
             // Parse the response.
-            response = JSON.parse(response);
+            try {
+              response = JSON.parse(response);
+            }
+            catch(e) {}
 
             // Debug.
             if(KINVEY_DEBUG && options.trace && isObject(response)) {
@@ -6165,17 +6173,17 @@ module.exports=h:"undefined"!=typeof window&&(window.sift=h)})();
             return options.trace && isObject(response) ? response.result : response;
           }, function(response) {
             // Parse the response.
-            var requestId = null;
             try {
               response = JSON.parse(response);
-
-              // If `options.trace`, extract result and headers from the response.
-              if(options.trace) {
-                requestId = response.headers['X-Kinvey-Request-Id'];
-                response = response.result;
-              }
             }
             catch(e) {}
+
+            // If `options.trace`, extract result and headers from the response.
+            var requestId = null;
+            if(options.trace) {
+              requestId = response.headers['X-Kinvey-Request-Id'];
+              response = response.result;
+            }
 
             // Format the response as client-side error object.
             if(null != response && null != response.error) { // Server-side error.
@@ -6455,11 +6463,13 @@ module.exports=h:"undefined"!=typeof window&&(window.sift=h)})();
         }).then(function(response) {
           // Step 2: categorize the documents in the collection.
           var promises = identifiers.map(function(id) {
+            var metadata = {
+              id: id,
+              timestamp: documents[id]
+            };
             return Sync._document(
-              collection, {
-                id: id,
-                timestamp: documents[id]
-              }, // The document metadata.
+              collection,
+              metadata, // The document metadata.
               response.local[id] || null, // The local document.
               response.net[id] || null, // The net document.
               options
