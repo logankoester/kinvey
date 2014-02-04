@@ -15,8 +15,8 @@
     }
   };
   var File = function() { };;
-/** @license MIT - promiscuous library - ©2013 Ruben Verborgh */
-!function e(){function t(){var u=function i(l,a,v){if(l!==e){var p=t();return i.c.push({d:p,resolve:l,reject:a}),p.promise}var s;if(null!==v&&(typeof v===c||typeof v===o))try{s=v.then}catch(y){a=!1,v=y}if(typeof s===o){l=u;try{s.call(this,function(t){s&&(s=null,l(e,!0,t))},function(t){s&&(s=null,l(e,!1,t))})}catch(y){s&&(s=null,l(e,!1,y))}}else{for(var h=a?"resolve":"reject",j=i.c,m=0,d=j.length;d>m;m++){var b=j[m],g=b.d,w=b[h];typeof w!==o?g[h](v):n(w,v,g)}u=r(f,v,a)}},f={then:function(e,t){return u(e,t)}};return u.c=[],{promise:f,resolve:function(t){u.c&&u(e,!0,t)},reject:function(t){u.c&&u(e,!1,t)}}}function r(e,r,c){return function(u,f){var i,l=c?u:f;return typeof l!==o?e:(n(l,r,i=t()),i.promise)}}function n(e,t,r){setTimeout(function(){try{var n=e(t),u=null!==n&&(typeof n===c||typeof n===o)&&n.then;typeof u!==o?r.resolve(n):n===r.promise?r.reject(new TypeError):u.call(n,r.resolve,r.reject)}catch(f){r.reject(f)}})}var o="function",c="object";window.promiscuous={resolve:function(e){var t={};return t.then=r(t,e,!0),t},reject:function(e){var t={};return t.then=r(t,e,!1),t},deferred:t}}();;
+/**@license MIT-promiscuous-©Ruben Verborgh*/
+!function(n,t){function c(n,t){return(typeof t)[0]==n}function u(o,e){return e=function f(i,h,l,a,p,s){function y(n){return function(t){p&&(p=0,f(c,n,t))}}if(a=f.q,i!=c)return u(function(n,t){a.push({p:this,r:n,j:t,1:i,0:h})});if(l&&c(n,l)|c(t,l))try{p=l.then}catch(j){h=0,l=j}if(c(n,p))try{p.call(l,y(1),h=y(0))}catch(j){h(j)}else for(e=function(t,e){return c(n,t=h?t:e)?u(function(n,c){r(this,n,c,l,t)}):o},s=0;s<a.length;)p=a[s++],c(n,i=p[h])?r(p.p,p.r,p.j,l,i):(h?p.r:p.j)(l)},e.q=[],o.call(o={then:function(n,t){return e(n,t)},"catch":function(n){return e(0,n)}},function(n){e(c,1,n)},function(n){e(c,0,n)}),o}function r(u,r,o,e,f){setTimeout(function(){try{e=f(e),f=e&&c(t,e)|c(n,e)&&e.then,c(n,f)?e==u?o(TypeError()):f.call(e,r,o):r(e)}catch(i){o(i)}})}function o(n){return u(function(t){t(n)})}Promise=u,u.resolve=o,u.reject=function(n){return u(function(t,c){c(n)})},u.all=function(n){return u(function(t,c,u,r){r=[],u=n.length||t(r),n.map(function(n,e){o(n).then(function(n){r[e]=n,--u||t(r)},c)})})}}("f","o");;
 (function(){var l=new function(){function d(a){return a?0:-1}var f=this.priority=function(a,b){for(var c=a.exprs,e=0,f=0,d=c.length;f<d;f++){var g=c[f];if(!~(g=g.e(g.v,b instanceof Date?b.getTime():b,b)))return-1;e+=g}return e},e=this.parse=function(a,b){a||(a={$eq:a});var c=[];if(a.constructor==Object)for(var d in a){var m=k[d]?d:"$trav",j=a[d],g=j;if(h[m]){if(~d.indexOf(".")){g=d.split(".");d=g.shift();for(var n={},l=n,p=0,s=g.length-1;p<s;p++)l=l[g[p]]={};l[g[p]]=j;g=j=n}if(j instanceof Array){g=
 [];for(n=j.length;n--;)g.push(e(j[n]))}else g=e(j,d)}c.push(r(m,d,g))}else c.push(r("$eq",d,a));var q={exprs:c,k:b,test:function(a){return!!~q.priority(a)},priority:function(a){return f(q,a)}};return q},h=this.traversable={$and:!0,$or:!0,$nor:!0,$trav:!0,$not:!0},k=this.testers={$eq:function(a,b){return d(a.test(b))},$ne:function(a,b){return d(!a.test(b))},$lt:function(a,b){return a>b?0:-1},$gt:function(a,b){return a<b?0:-1},$lte:function(a,b){return a>=b?0:-1},$gte:function(a,b){return a<=b?0:-1},
 $exists:function(a,b){return a===(null!=b)?0:-1},$in:function(a,b){if(b instanceof Array)for(var c=b.length;c--;){if(~a.indexOf(b[c]))return c}else return d(~a.indexOf(b));return-1},$not:function(a,b){if(!a.test)throw Error("$not test should include an expression, not a value. Use $ne instead.");return d(!a.test(b))},$type:function(a,b,c){return c?c instanceof a||c.constructor==a?0:-1:-1},$nin:function(a,b){return~k.$in(a,b)?-1:0},$mod:function(a,b){return b%a[0]==a[1]?0:-1},$all:function(a,b){for(var c=
@@ -134,7 +134,7 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
      * @type {string}
      * @default
      */
-    Kinvey.SDK_VERSION = '1.1.4';
+    Kinvey.SDK_VERSION = '1.1.5';
 
     // Properties.
     // -----------
@@ -1012,6 +1012,28 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
     // Utils.
     // ------
 
+    // Helper function to get and set a nested property in a document.
+    var nested = function(document, dotProperty, value) {
+      if(!dotProperty) { // Top-level document.
+        document = 'undefined' === typeof value ? document : value;
+        return document;
+      }
+
+      var obj = document;
+      var parts = dotProperty.split('.');
+
+      // Traverse the document until the nested property is located.
+      var current;
+      while((current = parts.shift()) && null != obj && obj.hasOwnProperty(current)) {
+        if(0 === parts.length) { // Return the (new) property value.
+          obj[current] = 'undefined' === typeof value ? obj[current] : value;
+          return obj[current];
+        }
+        obj = obj[current]; // Continue traversing.
+      }
+      return null; // Property not found.
+    };
+
     // Use the fastest possible means to execute a task in a future turn of the
     // event loop. Borrowed from [q](http://documentup.com/kriskowal/q/).
     var nextTick;
@@ -1601,7 +1623,7 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
       }
 
       // Return the device information string.
-      var parts = ['js-titanium/1.1.4'];
+      var parts = ['js-titanium/1.1.5'];
       if(0 !== libraries.length) { // Add external library information.
         parts.push('(' + libraries.sort().join(', ') + ')');
       }
@@ -4925,26 +4947,29 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
         }
 
         // Sorting.
-        // NOTE Sorting on dot-separated (nested) fields is not supported.
         var _this = this;
         response = response.sort(function(a, b) {
           for(var field in _this._sort) {
             if(_this._sort.hasOwnProperty(field)) {
+              // Find field in objects.
+              var aField = nested(a, field);
+              var bField = nested(b, field);
+
               // Elements which do not contain the field should always be sorted
               // lower.
-              if('undefined' !== typeof a[field] && 'undefined' === typeof b[field]) {
+              if(null != aField && null == bField) {
                 return -1;
               }
-              if('undefined' !== typeof b[field] && 'undefined' === typeof a[field]) {
+              if(null != bField && null == aField) {
                 return 1;
               }
 
               // Sort on the current field. The modifier adjusts the sorting order
               // (ascending (-1), or descending(1)). If the fields are equal,
               // continue sorting based on the next field (if any).
-              if(a[field] !== b[field]) {
+              if(aField !== bField) {
                 var modifier = _this._sort[field]; // 1 or -1.
-                return(a[field] < b[field] ? -1 : 1) * modifier;
+                return(aField < bField ? -1 : 1) * modifier;
               }
             }
           }
@@ -4961,28 +4986,6 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
 
     // Relational Data.
     // ----------------
-
-    // Helper function to get and set a nested property in a document.
-    var nested = function(document, dotProperty, value) {
-      if(!dotProperty) { // Top-level document.
-        document = 'undefined' === typeof value ? document : value;
-        return document;
-      }
-
-      var obj = document;
-      var parts = dotProperty.split('.');
-
-      // Traverse the document until the nested property is located.
-      var current;
-      while((current = parts.shift()) && null != obj && obj.hasOwnProperty(current)) {
-        if(0 === parts.length) { // Return the (new) property value.
-          obj[current] = 'undefined' === typeof value ? obj[current] : value;
-          return obj[current];
-        }
-        obj = obj[current]; // Continue traversing.
-      }
-      return null; // Property not found.
-    };
 
     /**
      * @private
@@ -5283,6 +5286,90 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
       options.offline = isEnabled && (!isOnline || options.offline);
       options.refresh = isEnabled && isOnline && false !== options.refresh;
       return options;
+    };
+
+    // Define a namespace to control local data expiration through a maxAge mechanism.
+    var maxAge = {
+      /**
+       * Adds maxAge metadata entries.
+       *
+       * @param {Array|Object} data List of objects.
+       * @param {integer} [maxAge] maximum age (seconds).
+       * @returns {Array|Object} Mutated list of objects.
+       */
+      addMetadata: function(data, maxAge) {
+        var lastRefreshedAt = new Date().toISOString();
+        var multi = isArray(data);
+
+        var response = multi ? data : [data];
+        response = response.map(function(item) {
+          if(null != item) {
+            item._kmd = item._kmd || {};
+            item._kmd.lastRefreshedAt = lastRefreshedAt;
+            if(null != maxAge) {
+              item._kmd.maxAge = maxAge;
+            }
+          }
+          return item;
+        });
+        return multi ? response : response[0];
+      },
+
+      /**
+       * Removes maxAge metadata entries.
+       *
+       * @param {Array|Object} data List of objects.
+       * @returns {Array|Object} Mutated list of objects.
+       */
+      removeMetadata: function(data) {
+        var multi = isArray(data);
+        var response = multi ? data : [data];
+        response = response.map(function(item) {
+          if(null != item && null != item._kmd) {
+            delete item._kmd.lastRefreshedAt;
+            delete item._kmd.maxAge;
+          }
+          return item;
+        });
+        return multi ? response : response[0];
+      },
+
+      /**
+       * Returns data maxAge status.
+       *
+       * @param {Array|Object} data List of objects.
+       * @param {integer} [maxAge] Maximum age (optional).
+       * @returns {boolean|Object} Status, or object if refresh is needed.
+       */
+      status: function(data, maxAge) {
+        var needsRefresh = false;
+        var response = isArray(data) ? data : [data];
+
+        var length = response.length;
+        var now = new Date().getTime();
+        for(var i = 0; i < length; i += 1) {
+          var item = response[i];
+          if(null != item && null != item._kmd && null != item._kmd.lastRefreshedAt) {
+            var itemMaxAge = (maxAge || item._kmd.maxAge) * 1000; // Milliseconds.
+            var lastRefreshedAt = fromISO(item._kmd.lastRefreshedAt).getTime();
+            var threshold = lastRefreshedAt + itemMaxAge;
+
+            // Verify time.
+            if(now > threshold) {
+              return false;
+            }
+
+            // Verify whether refresh is required.
+            var refreshThreshold = lastRefreshedAt + itemMaxAge * 0.9; // 90%
+            if(now > refreshThreshold) {
+              needsRefresh = true;
+            }
+          }
+        }
+        return needsRefresh ? {
+          refresh: true
+        } : true;
+      }
     };
 
     /**
@@ -5760,6 +5847,9 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
           return Database.group(collection, request.data, options);
         }
 
+        // Add maxAge metadata.
+        request.data = maxAge.addMetadata(request.data, options.maxAge);
+
         // (Batch) save.
         var method = isArray(request.data) ? 'batch' : 'save';
         var promise = Database[method](collection, request.data, options);
@@ -5830,10 +5920,34 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
           promise = Database.get(collection, request.id, options);
         }
         return promise.then(function(response) {
+          // Force refresh is maxAge of response data was exceeded.
+          var status = maxAge.status(response);
+          if(false === status && Kinvey.Sync.isOnline()) {
+            options.offline = false; // Force using network.
+            return Kinvey.Persistence.read(request, options);
+          }
+
           // Add support for references.
           if(options.relations) {
-            return KinveyReference.get(response, options);
+            return KinveyReference.get(response, options).then(function(response) {
+              // Refresh in the background if required.
+              if(true === status.refresh && Kinvey.Sync.isOnline()) {
+                options.offline = false; // Force using network.
+                Kinvey.Persistence.read(request, options);
+              }
+
+              // Return the response.
+              return response;
+            });
           }
+
+          // Refresh in the background if required.
+          if(true === status.refresh && Kinvey.Sync.isOnline()) {
+            options.offline = false; // Force using network.
+            Kinvey.Persistence.read(request, options);
+          }
+
+          // Return the response.
           return response;
         });
       },
@@ -5856,6 +5970,9 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
 
         // Normalize “collections” of the user namespace.
         var collection = USERS === request.namespace ? USERS : request.collection;
+
+        // Add maxAge metadata.
+        request.data = maxAge.addMetadata(request.data, options.maxAge);
 
         // All update operations change application data, and are therefore subject
         // to synchronization.
@@ -5950,6 +6067,9 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
           log('Initiating a create request.', arguments);
         }
 
+        // Strip maxAge metadata.
+        request.data = maxAge.removeMetadata(request.data);
+
         // Initiate the network request.
         request.method = 'POST';
         return Kinvey.Persistence.Net._request(request, options);
@@ -6013,6 +6133,9 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
         if(KINVEY_DEBUG) {
           log('Initiating an update request.', arguments);
         }
+
+        // Strip maxAge metadata.
+        request.data = maxAge.removeMetadata(request.data);
 
         // Initiate the network request.
         request.method = 'PUT';
@@ -6966,8 +7089,17 @@ var exports=exports||this;exports.Google=function(){function e(){var e=this,t=th
     };
 
     // Use `promiscuous` as `Kinvey.Defer` adapter.
-    if('undefined' !== typeof root.promiscuous) {
-      Kinvey.Defer.use(root.promiscuous);
+    if('undefined' !== typeof root.Promise) {
+      Kinvey.Defer.use({
+        deferred: function() {
+          var deferred = {};
+          deferred.promise = new root.Promise(function(resolve, reject) {
+            deferred.resolve = resolve;
+            deferred.reject = reject;
+          });
+          return deferred;
+        }
+      });
     }
 
     /* jshint evil: true */
