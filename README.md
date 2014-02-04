@@ -76,6 +76,21 @@ Kinvey.ping({
 ## What’s next?
 You are now ready to start building your awesome apps! Next we recommend diving into the [User guide](http://devcenter.kinvey.com/) or [Data store guide](http://devcenter.kinvey.com/nodejs/guides/datastore) to learn more about our service.
 
+## Contributing
+
+Are the Kinvey SDK files in this Bower package out of date? You can help!
+
+> Note: You will need [node](http://nodejs.org/), [npm](https://npmjs.org/) and [grunt](http://gruntjs.com/) installed on your system.
+
+1. Fork the [git repository](https://github.com/logankoester/kinvey) and clone it to your machine.
+2. In the cloned repository path, run `npm install grunt grunt-curl`.
+3. Edit [bower.json](https://github.com/logankoester/kinvey/blob/master/bower.json), and set the `version` property to the latest version available for download at [http://devcenter.kinvey.com/](http://devcenter.kinvey.com/).
+4. Run `grunt curl` to fetch the latest versions.
+5. Add the new files and commit.
+6. Open a [pull request](https://github.com/logankoester/kinvey/pulls) with the new version.
+
+It will be available on **bower** as soon as your pull request is accepted.
+
 ## License
 
     Copyright 2013 Kinvey, Inc.
